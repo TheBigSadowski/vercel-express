@@ -64,7 +64,7 @@ app.get('/products', async function (req, res) {
             </div>
             <form action="/create-checkout-session" method="POST">
                 <input type="hidden" name="price" value="${p.default_price.id}" />
-                <button type="submit" id="checkout-button">Checkout</button>
+                <button type="submit" id="checkout-button">Buy</button>
             </form>
             </section>
         `).join() + `
