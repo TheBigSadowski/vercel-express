@@ -15,7 +15,7 @@ const path = require('path');
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 // Create application/x-www-form-urlencoded parser
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended: true}));
 
 app.use(express.static('public'));
 
