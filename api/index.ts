@@ -96,6 +96,14 @@ app.post('/webhook', express.json({type: 'application/json'}), async (request, r
         case 'checkout.session.completed':
             console.log('webhook checkout.session.completed: sleeping and then responding');
             await sleep(8000);
+            await stripe.checkout.sessions.update(
+                event.data.object.id,
+                {
+                  metadata: {
+                    webhook: YOUR_DOMAIN,
+                  },
+                }
+              );
             console.log('webhook checkout.session.completed: returning from sleep');
             break;
 
