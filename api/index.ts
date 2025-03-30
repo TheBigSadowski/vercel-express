@@ -15,7 +15,7 @@ const path = require('path');
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 // Create application/x-www-form-urlencoded parser
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
+app.use(express.urlencoded());
 
 app.use(express.static('public'));
 
@@ -39,11 +39,47 @@ app.get('/uploadUser', function (req, res) {
 	res.sendFile(path.join(__dirname, '..', 'components', 'user_upload_form.html'));
 });
 
+app.get('/products', async function (req, res) {
+    const products = await stripe.products.list({
+        limit: 3,
+        expand: ['data.default_price']
+    });
+
+    const content = `<!DOCTYPE html>
+        <html>
+        <head>
+            <title>Buy cool new product</title>
+            <link rel="stylesheet" href="style.css">
+            <script src="https://js.stripe.com/v3/"></script>
+        </head>
+        <body>
+        ` + products.data.map(p => `
+            <section>
+            <div class="product">
+                <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+                <div class="description">
+                <h3>${p.name}</h3>
+                <h5>$${p.default_price.unit_amount/100}</h5>
+                </div>
+            </div>
+            <form action="/create-checkout-session" method="POST">
+                <input type="hidden" name="price" value="${p.default_price.id}" />
+                <button type="submit" id="checkout-button">Checkout</button>
+            </form>
+            </section>
+        `).join() + `
+        </body>
+        </html>`;
+
+    res.setHeader('Content-Type', 'text/html')
+    res.end(content);
+});
+
 app.post('/create-checkout-session', async (req, res) => {
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
-          price: PRICE_ID,
+          price: req.body.price || PRICE_ID,
           quantity: 1,
         },
       ],
