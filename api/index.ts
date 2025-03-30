@@ -20,15 +20,23 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {
-	res.sendFile(path.join(__dirname, '..', 'components', 'home.htm'));
+	res.sendFile(path.join(__dirname, '..', 'components', 'checkout.html'));
 });
 
 app.get('/about', function (req, res) {
-	res.sendFile(path.join(__dirname, '..', 'components', 'about.htm'));
+	res.sendFile(path.join(__dirname, '..', 'components', 'about.html'));
+});
+
+app.get('/cancel', function (req, res) {
+	res.sendFile(path.join(__dirname, '..', 'components', 'cancel.html'));
+});
+
+app.get('/success', function (req, res) {
+	res.sendFile(path.join(__dirname, '..', 'components', 'success.html'));
 });
 
 app.get('/uploadUser', function (req, res) {
-	res.sendFile(path.join(__dirname, '..', 'components', 'user_upload_form.htm'));
+	res.sendFile(path.join(__dirname, '..', 'components', 'user_upload_form.html'));
 });
 
 app.post('/create-checkout-session', async (req, res) => {
@@ -40,8 +48,8 @@ app.post('/create-checkout-session', async (req, res) => {
         },
       ],
       mode: 'payment',
-      success_url: `${YOUR_DOMAIN}/success.html`,
-      cancel_url: `${YOUR_DOMAIN}/cancel.html`,
+      success_url: `${YOUR_DOMAIN}/success`,
+      cancel_url: `${YOUR_DOMAIN}/cancel`,
       automatic_tax: {enabled: true},
     });
   
