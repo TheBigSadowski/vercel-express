@@ -1,10 +1,20 @@
-# Express.js on Vercel
+# Stripe event testing
 
-Simple Express.js + Vercel example that uses Vercel Postgres to add and display users in a table.
+Simple Express.js + Vercel app for testing Stripe webhooks.
 
-## How to Use
+## Stripe setup
 
-BE sure to create a Vercel Postgres database and add you environment variables to your `.env` file. You can find an example of the `.env` file in the `.env.example` file.
+### Stripe configuration
+1. In the Stripe dashboard, [create a few products](https://dashboard.stripe.com/products?active=true) (they will be listed at `/products`)
+2. Set your origin address in [your tax settings](https://dashboard.stripe.com/settings/tax)
+
+### Environment configuration
+
+1. Set the `STRIPE_KEY` evironment variable to your Stripe secret key.
+2. Set the `YOUR_DOMAIN` environment variable to where your app is running (the default is localhost for development, but if you're running this on a real server, you'll want to change this)
+
+
+## How to Use (on Vercel)
 
 You can choose from one of the following two methods to use this repository:
 
@@ -12,7 +22,7 @@ You can choose from one of the following two methods to use this repository:
 
 Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/examples/tree/main/solutions/express&project-name=express&repository-name=express)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/TheBigSadowski/vercel-express&project-name=stripe-webhooks&repository-name=stripe-webhooks)
 
 ### Clone and Deploy
 
