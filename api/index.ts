@@ -35,10 +35,6 @@ app.get('/success', function (req, res) {
 	res.sendFile(path.join(__dirname, '..', 'components', 'success.html'));
 });
 
-app.get('/uploadUser', function (req, res) {
-	res.sendFile(path.join(__dirname, '..', 'components', 'user_upload_form.html'));
-});
-
 app.get('/products', async function (req, res) {
     const products = await stripe.products.list({
         limit: 3,
