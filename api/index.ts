@@ -48,7 +48,7 @@ app.get('/products', async function (req, res) {
     const content = `<!DOCTYPE html>
         <html>
         <head>
-            <title>Buy cool new product</title>
+            <title>Buy cool new products</title>
             <link rel="stylesheet" href="style.css">
             <script src="https://js.stripe.com/v3/"></script>
         </head>
