@@ -119,9 +119,7 @@ app.post('/webhook', express.json({type: 'application/json'}), async (request, r
             break;
 
         case 'product.updated':
-            console.log('webhook product.updated: sleeping and then responding');
-            await sleep(8000);
-            console.log('webhook product.updated: returning from sleep');
+            console.log(`webhook product.updated: product id: ${event.data.object.id} name: ${event.data.object.name}`);
             break;
 
         default:
