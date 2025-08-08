@@ -88,10 +88,19 @@ app.post('/create-checkout-session', async (req, res) => {
     res.redirect(303, session.url);
 });
 
+const EXPECTED_VERSION = '2025-01-27.acacia';
+
 app.post('/webhook', express.json({type: 'application/json'}), async (request, response) => {
     const event = request.body;
 
-    console.log(event.api_version);
+    console.log(`received event ${event.type} in version ${event.api_version}`);
+
+    if (event.api_version != EXPECTED_VERSION) {
+        response.status(500).json({ 
+            error: `Expected version '${EXPECTED_VERSION}' but got '${event.version}' ` 
+        });
+        return;
+    }
 
     // Handle the event
     switch (event.type) {
