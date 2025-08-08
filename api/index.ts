@@ -97,7 +97,7 @@ app.post('/webhook', express.json({type: 'application/json'}), async (request, r
 
     if (event.api_version != EXPECTED_VERSION) {
         response.status(500).json({ 
-            error: `Expected version '${EXPECTED_VERSION}' but got '${event.version}' ` 
+            error: `Expected version '${EXPECTED_VERSION}' but got '${event.api_version}' ` 
         });
         return;
     }
