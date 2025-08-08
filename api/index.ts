@@ -91,6 +91,8 @@ app.post('/create-checkout-session', async (req, res) => {
 app.post('/webhook', express.json({type: 'application/json'}), async (request, response) => {
     const event = request.body;
 
+    console.log(event.version);
+    
     // Handle the event
     switch (event.type) {
         case 'checkout.session.completed':
